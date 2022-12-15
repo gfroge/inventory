@@ -26,7 +26,7 @@ main {
   grid-template-areas:
     "aside inventory"
     "snackbar snackbar";
-  grid-template-columns: 236px 552px;
+  grid-template-columns: 236px 525px;
 }
 .aside{
   grid-area: aside;
