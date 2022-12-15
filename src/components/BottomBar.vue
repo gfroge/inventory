@@ -27,15 +27,15 @@ const close = ()=>{
 
 <style scoped lang="scss">
 .snackbar {
+    background-color: $SECONDARY-DARK;
     padding: 18px;
     position: relative;
     @extend %border;
     &__content {
         width: 93.58%;
         height: 36px;
-        .skeleton-loader{
-            border-radius: 12px;
-        }
+        overflow: hidden;
+        border-radius: 12px;
     }
 
     &__close {

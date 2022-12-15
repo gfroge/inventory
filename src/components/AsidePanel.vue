@@ -41,6 +41,7 @@
 
 <style scoped lang="scss">
 .aside {
+    background-color: $SECONDARY-DARK;
     padding: 18px 14px;
     display: flex;
     flex-direction: column;
@@ -66,17 +67,15 @@
         width: 100%;
         height: 26px;
         margin-bottom: 24px;
-        .skeleton-loader {
-            border-radius: 8px;
-        }
+        border-radius: 8px;
+        overflow: hidden;
     }
 
     &__line {
         height: 10px;
         margin: 0 auto;
-        .skeleton-loader {
-            border-radius: 4px;
-        }
+        overflow: hidden;
+        border-radius: 4px;
         margin-bottom: 16px;
         &:last-child{
             margin: 8px auto 6px auto;
