@@ -1,29 +1,30 @@
 <template>
-    <div class="inventory-item">
+    <div v-if="inventoryItem" class="inventory-item">
         <div class="inventory-item__image">
-            <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect y="6" width="48" height="48" fill="#7FAA65" />
-                <g filter="url(#filter0_b_0_87)">
-                    <rect x="6" width="48" height="48" fill="#B8D998" fill-opacity="0.35" />
-                </g>
-                <defs>
-                    <filter id="filter0_b_0_87" x="-6" y="-12" width="72" height="72" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feGaussianBlur in="BackgroundImageFix" stdDeviation="6" />
-                        <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_0_87" />
-                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_0_87" result="shape" />
-                    </filter>
-                </defs>
-            </svg>
+            <img :src="inventoryItem.imagePath" alt="item">
         </div>
         <div class="inventory-item__number">
-            5
+            {{inventoryItem.count}}
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+// @ts-ignore
+import { useInventoryStore } from '@/stores/inventory'
+import {storeToRefs} from 'pinia'
+
+const props = defineProps({
+  id: {type: Number,default:null}
+})
+
+
+const store = useInventoryStore();
+const {items} = storeToRefs(store)
+// const {items} = store;
+
+// @ts-ignore
+let inventoryItem = JSON.parse(JSON.stringify( items))._object.items[props.id]
 
 </script>
 

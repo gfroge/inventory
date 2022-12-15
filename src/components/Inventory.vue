@@ -1,7 +1,7 @@
 <template>
     <div class="inventory">
-        <div class="inventory__panel" v-for="panel in 25" :key="panel">
-            <InventoryItem></InventoryItem>
+        <div class="inventory__panel" v-for="(panel,i) in 25">
+            <InventoryItem :id="i"></InventoryItem>
         </div>
     </div>
 </template>
@@ -18,7 +18,8 @@ import InventoryItem from "./InventoryUI/InventoryItem.vue"
     background-color: $PRIMARY-BORDER;
     display: grid;
     gap: 1px;;
-    grid-template-columns: repeat(5,1fr);
+    grid-template-columns: repeat(5,105px);
+    grid-template-rows: repeat(5,100px);
     &__panel {
         background-color: $SECONDARY-DARK;
         display: inline-grid;
