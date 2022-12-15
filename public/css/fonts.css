@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+/* font-family: 'Inter', sans-serif; */
+
+@font-face {
+	font-family: 'SF pro display';
+	src: url('../fonts/sf-pro-display/medium/SFPRODISPLAYMEDIUM.eot');
+	src: local('☺'), url('../fonts/sf-pro-display/medium/SFPRODISPLAYMEDIUM.woff') format('woff'),
+     url('../fonts/sf-pro-display/medium/SFPRODISPLAYMEDIUM.ttf') format('truetype'),
+      url('../fonts/sf-pro-display/medium/') format('svg');
+	font-weight: 500;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'SF pro display';
+	src: url('../fonts/sf-pro-display/regular/SFPRODISPLAYREGULAR.eot');
+	src: local('☺'), url('../fonts/sf-pro-display/regular/SFPRODISPLAYREGULAR.woff') format('woff'),
+     url('../fonts/sf-pro-display/regular/SFPRODISPLAYREGULAR.ttf') format('truetype'),
+      url('../fonts/sf-pro-display/regular/SFPRODISPLAYREGULAR.svg') format('svg');
+	font-weight: 400;
+	font-style: normal;
+}
+/* font-family: 'SF pro display'; */
