@@ -56,6 +56,8 @@
     }
 
     &__info {
+        margin: 0 auto;
+        max-width:600px;
         width: 100%;
         margin-top: 20px;
     }
