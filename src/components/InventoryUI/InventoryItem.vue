@@ -1,10 +1,10 @@
 <template>
-    <div v-if="inventoryItem" class="inventory-item">
+    <div v-if="inventoryItem && inventoryItem.count >0" @click="decrement(props.id)" class="inventory-item">
         <div class="inventory-item__image">
             <img :src="inventoryItem.imagePath" alt="item">
         </div>
         <div class="inventory-item__number">
-            {{inventoryItem.count}}
+            {{ inventoryItem.count }}
         </div>
     </div>
 </template>
@@ -12,19 +12,21 @@
 <script setup lang="ts">
 // @ts-ignore
 import { useInventoryStore } from '@/stores/inventory'
-import {storeToRefs} from 'pinia'
+import { storeToRefs } from 'pinia'
 
 const props = defineProps({
-  id: {type: Number,default:null}
+    id: { type: Number, default: null }
 })
 
 
 const store = useInventoryStore();
-const {items} = storeToRefs(store)
+const { decrement } = store
 // const {items} = store;
 
 // @ts-ignore
-let inventoryItem = JSON.parse(JSON.stringify( items))._object.items[props.id]
+let inventoryItem = store.items[props.id]
+
+
 
 </script>
 
@@ -39,14 +41,23 @@ let inventoryItem = JSON.parse(JSON.stringify( items))._object.items[props.id]
 
     transition: all 0.2s ease 0s;
     cursor: pointer;
-    &:hover{
+
+    &:hover {
         background-color: #2F2F2F;
     }
+
     &__image {
         width: 54px;
         height: 54px;
-        img{
+
+        img {
             max-width: 100%;
+            user-drag: none;
+            -webkit-user-drag: none;
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
         }
     }
 
