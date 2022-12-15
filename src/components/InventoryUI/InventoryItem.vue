@@ -12,22 +12,15 @@
 <script setup lang="ts">
 // @ts-ignore
 import { useInventoryStore } from '@/stores/inventory'
-import { storeToRefs } from 'pinia'
 
 const props = defineProps({
     id: { type: Number, default: null }
 })
 
-
 const store = useInventoryStore();
 const { decrement } = store
-// const {items} = store;
 
-// @ts-ignore
-let inventoryItem = store.items[props.id]
-
-
-
+const inventoryItem = store.items[props.id]
 </script>
 
 <style scoped lang="scss">
