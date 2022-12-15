@@ -1,13 +1,13 @@
 <template>
     <div class="inventory">
         <div class="inventory__panel" v-for="panel in 25" :key="panel">
-
+            <InventoryItem></InventoryItem>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-
+import InventoryItem from "./InventoryUI/InventoryItem.vue"
 </script>
 
 <style scoped lang="scss">
