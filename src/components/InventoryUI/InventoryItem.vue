@@ -1,5 +1,5 @@
 <template>
-    <div @mousedown="addDragClass" @mouseup="removeDragClass" ref="invItem" @dragend="removeDragClass"
+    <div @click="openMenu" @mousedown="addDragClass" @mouseup="removeDragClass" ref="invItem" @dragend="removeDragClass"
         class="inventory-item">
         <div class="inventory-item__image">
             <img :src="inventoryItem.imagePath" alt="item">
@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 // @ts-ignore
-import { useInventoryStore } from '@/stores/inventory'
+import { useInventoryStore, useMenuStore } from '@/stores/inventory'
 import { ref } from 'vue'
 
 const invItem = ref();
@@ -36,6 +36,12 @@ const addDragClass = () => {
 const removeDragClass = () => {
     invItem.value?.classList.remove('drag')
 }
+
+const menuStore = useMenuStore();
+const { open } = menuStore;
+const openMenu = () => {
+    open(inventoryItem.imagePath)
+}
 </script>
 
 <style scoped lang="scss">
@@ -52,6 +58,7 @@ const removeDragClass = () => {
     transition: all 0.2s ease 0s;
 
     cursor: pointer;
+
     &:hover {
         background-color: #2F2F2F;
     }

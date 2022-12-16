@@ -6,6 +6,7 @@
             </InventoryItem>
         </div>
         <InventoryMenu/>
+        <!-- <div class="inventory__hide"></div> -->
     </div>
 </template>
 
@@ -74,5 +75,15 @@ const onDrop = (event: DragEvent, panelId: number) => {
         background-color: $SECONDARY-DARK;
         display: inline-grid;
     }
+    // &__hide{
+    //     height: 100px;
+    //     width: 250px;
+    //     position: absolute;
+    //     top: 0;
+    //     left: 47.62%;
+    //     // background-color: $PRIMARY-DARK;
+    //     background-color: red;
+    //     z-index: 1000;
+    // }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-    <div class="menu">
-        <button class="menu__close">
+    <div :class="isOpened ? 'menu opened' : 'menu'">
+        <button @click="closeMenu" class="menu__close">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                     d="M12 1.05L10.95 0L6 4.95L1.05 0L0 1.05L4.95 6L0 10.95L1.05 12L6 7.05L10.95 12L12 10.95L7.05 6L12 1.05Z"
@@ -8,10 +8,7 @@
             </svg>
         </button>
         <div class="menu__image-wrap">
-            <picture>
-                <source srcset="images/aside.webp">
-                <img width="130" height="130" src="images/aside.png" alt="item large image">
-            </picture>
+            <img :src="imagePath" alt="item image">
         </div>
         <div class="menu__info">
             <div class="menu__title">
@@ -42,17 +39,26 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-    id: { type: Number, default: null }
-})
+// @ts-ignore
+import { useMenuStore } from '@/stores/inventory'
+import { storeToRefs } from 'pinia'
+
+const menuStore = useMenuStore();
+const { close } = menuStore
+const { isOpened, imagePath } = storeToRefs(menuStore)
+
+const closeMenu = () => {
+    close()
+}
 </script>
 
 <style scoped lang="scss">
 .menu {
+    transition: all 0.3s ease 0s;
     backdrop-filter: blur(6px);
     position: absolute;
     top: 0;
-    right: 0;
+    right: -47.62%;
     height: 100%;
     width: 47.62%;
     border-left: 1px solid $PRIMARY-BORDER;
@@ -60,12 +66,16 @@ const props = defineProps({
     overflow: hidden;
     padding: 20px 15px;
     width: 250px;
-    background-color: rgba($color: $SECONDARY-DARK, $alpha: 0.7) ;
+    background-color: rgba($color: $SECONDARY-DARK, $alpha: 0.7);
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+
+    &.opened {
+        right: 0;
+    }
 
     &__close {
         top: 8px;
@@ -82,12 +92,14 @@ const props = defineProps({
 
 
     &__image-wrap {
-        min-height: 179px;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-
+        padding-top: 34px;
         img {
+            height: 130px;
+            width: 130px;
             max-width: 100%;
         }
     }
