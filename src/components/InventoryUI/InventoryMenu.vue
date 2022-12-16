@@ -56,8 +56,8 @@ const input = ref();
 
 const menuStore = useMenuStore();
 const inventoryStore = useInventoryStore();
-const { close, position } = menuStore
-const { remove } = inventoryStore
+const { close } = menuStore
+const { removeItem } = inventoryStore
 const { isOpened, imagePath } = storeToRefs(menuStore)
 
 const closeMenu = () => {
@@ -76,10 +76,11 @@ const cancel = () => {
 }
 const deleteItem = () => {
     if (Number(input.value.value.trim())) {
-        remove(position, Number(input.value.value.trim()));
+        removeItem(menuStore.position, Number(input.value.value.trim()));
         closeMenu()
         closePopup()
         input.value.classList.remove('error')
+        input.value.value = '';
     } else if(!input.value.classList.contains('error')) {
         input.value.classList.add('error')
     }

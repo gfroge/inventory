@@ -8,19 +8,17 @@ export const useInventoryStore = defineStore('inventory', () => {
         { imagePath: 'images/item3.svg', count: 5, position: 2 }
     ])
 
-    function remove(position: number, countToDel: number) {
+    function removeItem(position: number, countToDel: number) {
         console.log('remove',position,countToDel);
         
         items.value.forEach((item) => {   
             if (item.position === position) {
-                console.log('delete',position,countToDel);
-                
                 item.count -= countToDel
             }
         })
     }
 
-    return { items, remove }
+    return { items, removeItem }
 })
 
 export const useMenuStore = defineStore('menu', {
