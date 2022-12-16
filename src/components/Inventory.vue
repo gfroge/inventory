@@ -32,13 +32,23 @@ const onDargStart = (event: DragEvent, itemId: number) => {
 }
 
 const onDrop = (event: DragEvent, panelId: number) => {
+
     if (event.dataTransfer?.getData('itemId')) {
         const itemId = parseInt(event.dataTransfer.getData('itemId'));
-        for (let i = 0; i < inventoryItems.length; i++) {
-            if (inventoryItems[i].position == itemId) {
-                inventoryItems[i].position = panelId;
+        // @ts-ignore
+        const filteredItems = inventoryItems.filter(item => {
+            return item.position === panelId
+        })
+
+
+        if (filteredItems.length === 0) {
+            for (let i = 0; i < inventoryItems.length; i++) {
+                if (inventoryItems[i].position == itemId) {
+                    inventoryItems[i].position = panelId;
+                }
             }
         }
+
     }
 }
 
@@ -53,7 +63,7 @@ const onDrop = (event: DragEvent, panelId: number) => {
     display: grid;
     gap: 1px;
     ;
-    grid-template-columns: repeat(5, 105px);
+    grid-template-columns: repeat(5, 104px);
     grid-template-rows: repeat(5, 100px);
 
     &__panel {

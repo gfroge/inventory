@@ -1,5 +1,6 @@
 <template>
-    <div class="inventory-item">
+    <div @mousedown="addDragClass" @mouseup="removeDragClass" ref="invItem" @dragend="removeDragClass"
+        class="inventory-item">
         <div class="inventory-item__image">
             <img :src="inventoryItem.imagePath" alt="item">
         </div>
@@ -12,6 +13,9 @@
 <script setup lang="ts">
 // @ts-ignore
 import { useInventoryStore } from '@/stores/inventory'
+import { ref } from 'vue'
+
+const invItem = ref();
 
 const props = defineProps({
     id: { type: Number, default: null }
@@ -19,27 +23,35 @@ const props = defineProps({
 
 const store = useInventoryStore();
 const inventoryItems = store.items;
-let inventoryItem:any;
+let inventoryItem: any;
 
 for (let i = 0; i < inventoryItems.length; i++) {
     if (inventoryItems[i].position === props.id)
         inventoryItem = inventoryItems[i]
 }
 
+const addDragClass = () => {
+    invItem.value?.classList.add('drag')
+}
+const removeDragClass = () => {
+    invItem.value?.classList.remove('drag')
+}
 </script>
 
 <style scoped lang="scss">
 .inventory-item {
     width: 100%;
     height: 100%;
+    // min-width: 105px;
+    // min-height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
 
     transition: all 0.2s ease 0s;
-    cursor: pointer;
 
+    cursor: pointer;
     &:hover {
         background-color: #2F2F2F;
     }
@@ -50,12 +62,7 @@ for (let i = 0; i < inventoryItems.length; i++) {
 
         img {
             max-width: 100%;
-            // user-drag: none;
-            // -webkit-user-drag: none;
-            // user-select: none;
-            // -moz-user-select: none;
-            // -webkit-user-select: none;
-            // -ms-user-select: none;
+            pointer-events: none;
         }
     }
 
@@ -77,6 +84,11 @@ for (let i = 0; i < inventoryItems.length; i++) {
         font-weight: 500;
         font-size: 10px;
         color: rgba($color: #ffffff, $alpha: 0.4);
+    }
+
+    &.drag {
+        border-radius: 24px;
+        border: 1px solid $PRIMARY-BORDER;
     }
 }
 </style>
