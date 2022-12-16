@@ -6,7 +6,6 @@
             </InventoryItem>
         </div>
         <InventoryMenu/>
-        <!-- <div class="inventory__hide"></div> -->
     </div>
 </template>
 
@@ -21,7 +20,7 @@ const store = useInventoryStore();
 const inventoryItems = store.items
 const findItem = (id: number) => {
     for (let i = 0; i < inventoryItems.length; i++) {
-        if (inventoryItems[i].position === id) return true;
+        if (inventoryItems[i].position === id && inventoryItems[i].count >0) return true;
     }
     return false
 }

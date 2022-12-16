@@ -33,22 +33,51 @@
             </div>
         </div>
         <div class="menu__delete delete">
-            <button class="delete__main-btn">Удалить предмет</button>
+            <button @click="openPopup" class="delete__main-btn">Удалить предмет</button>
+            <div ref="popup" class="delete__popup">
+                <input ref="input" type="text" placeholder="Введите количество" class="delete__input">
+                <div class="delete__buttons">
+                    <button @click="cancel" class="delete__cancel">Отмена</button>
+                    <button @click="deleteItem" class="delete__delete">Подтвердить</button>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 // @ts-ignore
-import { useMenuStore } from '@/stores/inventory'
+import { useMenuStore, useInventoryStore } from '@/stores/inventory'
 import { storeToRefs } from 'pinia'
+import { ref } from 'vue'
+
+const popup = ref();
+const input = ref();
 
 const menuStore = useMenuStore();
-const { close } = menuStore
+const inventoryStore = useInventoryStore();
+const { close,position } = menuStore
+const { remove } = inventoryStore
 const { isOpened, imagePath } = storeToRefs(menuStore)
 
 const closeMenu = () => {
     close()
+}
+
+const openPopup = () => {
+    popup.value.classList.add('active')
+}
+const closePopup = () => {
+    popup.value.classList.remove('active')
+}
+const cancel = () => {
+    input.value.value = '';
+    closePopup()
+}
+const deleteItem = () => {
+    remove(position, Number(input.value.value));
+    closeMenu()
+    closePopup()
 }
 </script>
 
@@ -97,6 +126,7 @@ const closeMenu = () => {
         justify-content: center;
         align-items: center;
         padding-top: 34px;
+
         img {
             height: 130px;
             width: 130px;
@@ -138,24 +168,93 @@ const closeMenu = () => {
     }
 }
 
+%btn {
+    font-size: 14px;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    transition: all 0.3s ease 0s;
+
+    &:hover {
+        box-shadow: 0px 0px 14px 3px rgba($color: $ACCENT, $alpha: 0.5);
+    }
+}
+
 .delete {
+    font-family: 'SF pro display';
+    position: relative;
+
     &__main-btn {
-        font-family: 'SF pro display';
-        font-size: 14px;
-        font-weight: 400;
+        @extend %btn;
+        color: #ffffff;
+        background-color: $ACCENT;
         width: 100%;
         height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #ffffff;
-        border-radius: 8px;
-        background-color: #FA7272;
-        transition: all 0.3s ease 0s;
 
         &:hover {
-            box-shadow: 0px 0px 14px 3px rgba($color: $ACCENT, $alpha: 0.5);
+            box-shadow: none;
+            background-color: #FF8888;
         }
+    }
+
+    &__popup {
+        border-top: 1px solid $PRIMARY-BORDER;
+        height: 133px;
+        width: 252px;
+        margin-left: -15px;
+        margin-bottom: -20px;
+        padding: 20px;
+        position: absolute;
+        left: 0;
+        bottom: -133px;
+        background-color: $SECONDARY-DARK;
+        z-index: 300;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        transition: all 0.3s ease 0s;
+
+        &.active {
+            bottom: 0;
+        }
+    }
+
+    &__input {
+        background-color: $SECONDARY-DARK;
+        border: 1px solid $PRIMARY-BORDER;
+        border-radius: 4px;
+        padding: 12px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #fff;
+
+        &::placeholder {
+            color: rgba($color: #ffffff, $alpha: 0.4);
+        }
+    }
+
+    &__cancel {
+        @extend %btn;
+        color: #2D2D2D;
+        background-color: #ffffff;
+
+        height: 33px;
+        width: 88px;
+        margin-right: 10px;
+        display: inline;
+    }
+
+    &__delete {
+        @extend %btn;
+        color: #ffffff;
+        background-color: $ACCENT;
+        height: 33px;
+        width: 112px;
+        display: inline;
     }
 }
 </style>

@@ -8,28 +8,30 @@ export const useInventoryStore = defineStore('inventory', () => {
         { imagePath: 'images/item3.svg', count: 5, position: 2 }
     ])
 
-
-
-    function decrement(id: number) {
-        items.value[id].count--;
+    function remove(position: number, countToDel: number) {
+        items.value.forEach((item) => {   
+            if (item.position === position) {
+                item.count -= countToDel
+            }
+        })
     }
 
-    return { items, decrement }
+    return { items, remove }
 })
 
 export const useMenuStore = defineStore('menu', {
     state: () => (
         {
             isOpened: false,
-            imagePath: ''
+            imagePath: '',
+            position: 0
         }
     ),
     actions: {
-        open(path: string) {
+        open(path: string, position: number) {
             this.isOpened = true
             this.imagePath = path
-            console.log(this.isOpened);
-
+            this.position = position
         },
         close() {
             this.isOpened = false

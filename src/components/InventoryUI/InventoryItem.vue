@@ -40,7 +40,7 @@ const removeDragClass = () => {
 const menuStore = useMenuStore();
 const { open } = menuStore;
 const openMenu = () => {
-    open(inventoryItem.imagePath)
+    open(inventoryItem.imagePath, inventoryItem.position)
 }
 </script>
 
