@@ -1,5 +1,5 @@
 <template>
-    <div v-if="inventoryItem && inventoryItem.count >0" @click="decrement(props.id)" class="inventory-item">
+    <div class="inventory-item">
         <div class="inventory-item__image">
             <img :src="inventoryItem.imagePath" alt="item">
         </div>
@@ -18,9 +18,14 @@ const props = defineProps({
 })
 
 const store = useInventoryStore();
-const { decrement } = store
+const inventoryItems = store.items;
+let inventoryItem:any;
 
-const inventoryItem = store.items[props.id]
+for (let i = 0; i < inventoryItems.length; i++) {
+    if (inventoryItems[i].position === props.id)
+        inventoryItem = inventoryItems[i]
+}
+
 </script>
 
 <style scoped lang="scss">
@@ -45,12 +50,12 @@ const inventoryItem = store.items[props.id]
 
         img {
             max-width: 100%;
-            user-drag: none;
-            -webkit-user-drag: none;
-            user-select: none;
-            -moz-user-select: none;
-            -webkit-user-select: none;
-            -ms-user-select: none;
+            // user-drag: none;
+            // -webkit-user-drag: none;
+            // user-select: none;
+            // -moz-user-select: none;
+            // -webkit-user-select: none;
+            // -ms-user-select: none;
         }
     }
 
