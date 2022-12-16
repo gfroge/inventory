@@ -9,11 +9,13 @@ export const useInventoryStore = defineStore('inventory', () => {
     ])
 
     function removeItem(position: number, countToDel: number) {
-        console.log('remove',position,countToDel);
-        
-        items.value.forEach((item) => {   
+        items.value.forEach((item,index) => {   
             if (item.position === position) {
                 item.count -= countToDel
+                if(item.count <= 0) {
+                    item.position = 999999
+                }
+                
             }
         })
     }
