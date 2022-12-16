@@ -2,8 +2,8 @@
     <aside class="aside">
         <div class="aside__image-wrap">
             <picture>
-                <source srcset="images/aside.webp">
-                <img width="208" height="240" src="images/aside.png" alt="aside image">
+                <source srcset="/images/aside.webp">
+                <img width="208" height="240" src="/images/aside.png" alt="aside image">
             </picture>
         </div>
         <div class="aside__info">
