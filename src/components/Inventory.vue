@@ -5,6 +5,7 @@
             <InventoryItem v-if="findItem(i)" :id="i" @dragstart="onDargStart($event, i)" draggable="true">
             </InventoryItem>
         </div>
+        <InventoryMenu/>
     </div>
 </template>
 
@@ -12,6 +13,7 @@
 // @ts-ignore
 import { useInventoryStore } from '@/stores/inventory'
 import InventoryItem from "./InventoryUI/InventoryItem.vue"
+import InventoryMenu from "./InventoryUI/InventoryMenu.vue"
 
 const store = useInventoryStore();
 
@@ -56,6 +58,8 @@ const onDrop = (event: DragEvent, panelId: number) => {
 
 <style scoped lang="scss">
 .inventory {
+    position: relative;
+
     border-radius: 12px;
     overflow: hidden;
     @extend %border;
