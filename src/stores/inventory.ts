@@ -9,8 +9,12 @@ export const useInventoryStore = defineStore('inventory', () => {
     ])
 
     function remove(position: number, countToDel: number) {
+        console.log('remove',position,countToDel);
+        
         items.value.forEach((item) => {   
             if (item.position === position) {
+                console.log('delete',position,countToDel);
+                
                 item.count -= countToDel
             }
         })
@@ -32,6 +36,7 @@ export const useMenuStore = defineStore('menu', {
             this.isOpened = true
             this.imagePath = path
             this.position = position
+            return this.position;
         },
         close() {
             this.isOpened = false

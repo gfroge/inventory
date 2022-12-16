@@ -56,7 +56,7 @@ const input = ref();
 
 const menuStore = useMenuStore();
 const inventoryStore = useInventoryStore();
-const { close,position } = menuStore
+const { close, position } = menuStore
 const { remove } = inventoryStore
 const { isOpened, imagePath } = storeToRefs(menuStore)
 
@@ -75,9 +75,14 @@ const cancel = () => {
     closePopup()
 }
 const deleteItem = () => {
-    remove(position, Number(input.value.value));
-    closeMenu()
-    closePopup()
+    if (Number(input.value.value.trim())) {
+        remove(position, Number(input.value.value.trim()));
+        closeMenu()
+        closePopup()
+        input.value.classList.remove('error')
+    } else if(!input.value.classList.contains('error')) {
+        input.value.classList.add('error')
+    }
 }
 </script>
 
@@ -231,9 +236,12 @@ const deleteItem = () => {
         font-size: 14px;
         font-weight: 500;
         color: #fff;
-
+        transition: all 0.2s ease 0s;
         &::placeholder {
             color: rgba($color: #ffffff, $alpha: 0.4);
+        }
+        &.error{
+            border: 1px solid $ACCENT;
         }
     }
 
